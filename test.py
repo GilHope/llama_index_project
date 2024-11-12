@@ -1,13 +1,18 @@
 import os
+from llama_index.llms.openai import OpenAI
 from llama_index.core import (
     VectorStoreIndex,
     SimpleDirectoryReader,
     StorageContext,
     load_index_from_storage,
+    Settings,
 )
 from dotenv import load_dotenv
 import logging
 import sys
+
+# Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0.1)
+
 
 # Load OpenAI API Key
 load_dotenv()
