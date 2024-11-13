@@ -90,7 +90,7 @@ individual_query_engine_tools = [
     QueryEngineTool(
         query_engine = index_anti.as_query_engine(),
         metadata=ToolMetadata(
-            name=f"vector_index_beyond",
+            name=f"vector_index_anti",
             description=f"useful for when you want to answer qustions about the Antichrist by Friedrich Nietzsche",
         ),
     ),
@@ -135,5 +135,5 @@ agent = OpenAIAgent.from_tools(tools, verbose=True)
 # response = agent.chat("What is my name?")
 # print(str(response))
 
-response = agent.chat("What is the Apollonian and Dionysian?")
+response = agent.chat("How does Nietzsche's concept of duality evolve in his works?")
 print(str(response))
