@@ -95,7 +95,7 @@ query_engine_tool = QueryEngineTool(
     query_engine=query_engine,
     metadata=ToolMetadata(
         name="sub_question_query_engine",
-        description="useful for when you want to answer queries that require analyzing multiple SEC 10-K documents for Uber",
+        description="useful for when you want to answer queries that require analyzing multiple books written by Nietzsche",
     ),
 )
 
