@@ -41,6 +41,11 @@ if not os.path.exists(PERSIST_DIR):
     index_tragedy = VectorStoreIndex.from_documents(documents_tragedy)
     # store it for later
     index_tragedy.storage_context.persist(persist_dir=PERSIST_DIR + "/tragedy")
+
+    documents_anti = SimpleDirectoryReader("books/anti/").load_data()
+    index_anti = VectorStoreIndex.from_documents(documents_anti)
+    # store it for later
+    index_anti.storage_context.persist(persist_dir=PERSIST_DIR + "/anti")
 else:
     # load the existing index
     storage_context_beyond = StorageContext.from_defaults(persist_dir=PERSIST_DIR + "/beyond")
@@ -49,6 +54,8 @@ else:
     index_twilight = load_index_from_storage(storage_context_twilight)
     storage_context_tragedy = StorageContext.from_defaults(persist_dir=PERSIST_DIR + "/tragedy")
     index_tragedy = load_index_from_storage(storage_context_tragedy)
+    storage_context_anti = StorageContext.from_defaults(persist_dir=PERSIST_DIR + "/anti")
+    index_anti = load_index_from_storage(storage_context_anti)
 
 # documents = SimpleDirectoryReader("books/").load_data()
 # index = VectorStoreIndex.from_documents(documents)
@@ -78,6 +85,13 @@ individual_query_engine_tools = [
         metadata=ToolMetadata(
             name=f"vector_index_beyond",
             description=f"useful for when you want to answer qustions about the Beyond Good and Evil by Friedrich Nietzsche",
+        ),
+    ),
+    QueryEngineTool(
+        query_engine = index_anti.as_query_engine(),
+        metadata=ToolMetadata(
+            name=f"vector_index_beyond",
+            description=f"useful for when you want to answer qustions about the Antichrist by Friedrich Nietzsche",
         ),
     ),
 ]
