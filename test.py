@@ -105,11 +105,21 @@ from llama_index.agent.openai import OpenAIAgent
 
 agent = OpenAIAgent.from_tools(tools, verbose=True)
 
-response = query_engine.query("How does Nietzsche's concept of duality evolve in his works?")
-print(response)
+# while True:
+#     text_input = input("User: ")
+#     if text_input == "exit":
+#         break
+#     response = agent.chat(text_input)
+#     print(f"Agent: {response}")
+
+# response = query_engine.query("How does Nietzsche's concept of duality evolve in his works?")
+# print(response)
 
 # response = agent.chat("hi, i am bob")
 # print(str(response))
 
 # response = agent.chat("What is my name?")
 # print(str(response))
+
+response = agent.chat("What is the Apollonian and Dionysian?")
+print(str(response))
