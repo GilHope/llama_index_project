@@ -65,7 +65,21 @@ individual_query_engine_tools = [
             name=f"vector_index_tragedy",
             description=f"useful for when you want to answer qustions about the Birth of Tragedy by Friedrich Nietzsche",
         ),
-    )
+    ),
+    QueryEngineTool(
+        query_engine = index_twilight.as_query_engine(),
+        metadata=ToolMetadata(
+            name=f"vector_index_twilight",
+            description=f"useful for when you want to answer qustions about the Twilight of the Idols by Friedrich Nietzsche",
+        ),
+    ),
+    QueryEngineTool(
+        query_engine = index_beyond.as_query_engine(),
+        metadata=ToolMetadata(
+            name=f"vector_index_beyond",
+            description=f"useful for when you want to answer qustions about the Beyond Good and Evil by Friedrich Nietzsche",
+        ),
+    ),
 ]
 
 from llama_index.llms.openai import OpenAI
@@ -76,5 +90,26 @@ query_engine = SubQuestionQueryEngine.from_defaults(
     llm=OpenAI(),
 )
 
-response = query_engine.query("Apollonian and Dionysian")
+# Sub query question engine
+query_engine_tool = QueryEngineTool(
+    query_engine=query_engine,
+    metadata=ToolMetadata(
+        name="sub_question_query_engine",
+        description="useful for when you want to answer queries that require analyzing multiple SEC 10-K documents for Uber",
+    ),
+)
+
+tools = individual_query_engine_tools + [query_engine_tool]
+
+from llama_index.agent.openai import OpenAIAgent
+
+agent = OpenAIAgent.from_tools(tools, verbose=True)
+
+response = query_engine.query("How does Nietzsche's concept of duality evolve in his works?")
 print(response)
+
+# response = agent.chat("hi, i am bob")
+# print(str(response))
+
+# response = agent.chat("What is my name?")
+# print(str(response))
