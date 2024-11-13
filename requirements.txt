@@ -7,3 +7,5 @@ llama-index
 openai 
 python-dotenv
 html2text
+llama-hub 
+unstructured
